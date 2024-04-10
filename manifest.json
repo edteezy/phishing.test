@@ -1,0 +1,32 @@
+{
+  "name": "CathPish",
+  "version": "1.0.01",
+  "description": "A phishing detector extension",
+  "permissions": ["activeTab", "declarativeContent", "storage", "webNavigation"],
+  "background": {
+    "service_worker": "js/bg-loader.js"
+  },
+  "action": {
+    "default_popup": "plugin_ui.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["js/features.js"]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["js/phishing-detected.js"],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'",
+    "script-src": [
+      "self",
+      "https://code.jquery.com" // Allow scripts from jQuery CDN
+    ]
+  },
+  "manifest_version": 3
+}
